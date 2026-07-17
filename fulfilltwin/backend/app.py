@@ -85,6 +85,13 @@ def create_app(test_config: dict[str, Any] | None = None) -> Flask:
             app.logger.exception("Scenario execution failed")
             return jsonify({"error": f"Scenario execution failed: {type(exc).__name__}: {exc}"}), 500
 
+    @app.post("/api/scenario/approve/<run_id>")
+    def approve_scenario(run_id: str):
+        updated = memory.approve_run(run_id)
+        if not updated:
+            return jsonify({"error": "Run not found"}), 404
+        return jsonify({"status": "approved", "run": updated})
+
     @app.post("/api/rag/search")
     def rag_search():
         payload = request.get_json(force=True) or {}

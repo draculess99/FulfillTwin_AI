@@ -55,6 +55,20 @@ class JsonMemoryStore:
         rows = self.list(limit=1)
         return rows[0] if rows else None
 
+    def approve_run(self, run_id: str, user: str = "Manager") -> dict[str, Any] | None:
+        with self._lock:
+            payload = self._read()
+            for run in payload["runs"]:
+                if run.get("run_id") == run_id:
+                    if run.get("approval", {}).get("status") == "PENDING":
+                        run["approval"]["status"] = "APPROVED"
+                        run["approval"]["approved_by"] = user
+                        run["approval"]["approved_at"] = datetime.now(timezone.utc).isoformat()
+                        self._write(payload)
+                        return run
+                    return run
+            return None
+
     def clear(self) -> None:
         with self._lock:
             self._write({"version": 1, "runs": []})

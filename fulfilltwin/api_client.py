@@ -30,6 +30,9 @@ class ApiClient:
     def run_scenario(self, scenario: dict[str, Any], provider: str, model: str) -> dict[str, Any]:
         return self._request("POST", "/api/scenario/run", json={"scenario": scenario, "provider": provider, "model": model})
 
+    def approve_scenario(self, run_id: str) -> dict[str, Any]:
+        return self._request("POST", f"/api/scenario/approve/{run_id}")
+
     def search_rag(self, query: str, top_k: int = 5) -> dict[str, Any]:
         return self._request("POST", "/api/rag/search", json={"query": query, "top_k": top_k})
 

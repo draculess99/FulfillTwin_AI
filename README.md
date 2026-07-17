@@ -35,8 +35,8 @@ The bundled models train on synthetic data on first startup. For production use,
 
 ## Pages
 
-- **Control Tower** — simulated event stream and recent decisions
-- **Scenario Lab** — disruption controls, model execution, plan comparison
+- **Control Tower** — live operational view of warehouse events and recent decisions. **Features interactive "Incident Triggers": clicking a high-severity live event automatically maps its physical parameters directly to the Scenario Lab for immediate AI response planning.**
+- **Scenario Lab** — disruption controls, model execution, plan comparison. Can be run manually via sliders or triggered dynamically from live events on the Control Tower.
 - **Agent Council** — specialist reports, rules, RAG evidence, approval status
 - **Knowledge Center** — searchable internal operating playbooks
 - **Model Ops** — metrics, model card, retraining, JSON memory
@@ -66,6 +66,17 @@ flowchart LR
     J --> O[Human Approval]
     O --> P[JSON Audit Memory]
 ```
+
+## Machine Learning Pipeline
+
+Generative AI (LLMs) are historically poor at performing raw mathematical calculations. FulfillTwin AI solves this by executing a traditional, deterministic Machine Learning pipeline *first*, and then feeding those hard numbers into the Agent Council. 
+
+1. **XGBoost Regressor:** Takes the live warehouse parameters (order volume, absenteeism, etc.) and predicts the exact numerical **Future Backlog**.
+2. **XGBoost Classifier:** Uses the same inputs to predict the percentage probability of an **SLA Breach** (packages shipping late).
+3. **K-Means Clustering:** Analyzes the overall "shape" of the current parameters and groups them into a specific **Operating Regime** (e.g., "High Stress", "Normal Operations"). This gives the human manager a high-level categorization of the disaster before they even read the numbers.
+4. **Isolation Forest:** Acts as an anomaly detector, flagging if the current disaster is completely out-of-distribution compared to historical training data.
+
+By running these models first, the AI Agents build their recovery plans based on mathematically sound supply-chain forecasts rather than LLM hallucinations.
 
 ## Local setup
 
