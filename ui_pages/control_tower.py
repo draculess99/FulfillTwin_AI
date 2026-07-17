@@ -68,7 +68,15 @@ def render_live_events():
 
 render_live_events()
 
-st.subheader("Recent digital-twin decisions")
+head_col1, head_col2 = st.columns([4, 1])
+with head_col1:
+    st.subheader("Recent digital-twin decisions")
+with head_col2:
+    st.write("") # spacing
+    if st.button("🗑️ Clear memory", type="secondary", use_container_width=True):
+        with st.spinner("Clearing audit log..."):
+            client.clear_memory()
+            st.rerun()
 try:
     runs = client.memory(10)["runs"]
     if not runs:
