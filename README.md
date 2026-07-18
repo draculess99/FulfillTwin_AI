@@ -2,11 +2,12 @@
 
 **Human–Robot Workforce Digital Twin and Incident Commander**
 
-![Control Tower Screenshot](path/to/your/control_tower_screenshot.png)
-*(Placeholder: Add screenshot of the Control Tower live dashboard here)*
+![Control Tower Screenshot](docs/images/control_tower_screenshot.png)
 
-![Scenario Lab Screenshot](path/to/your/scenario_lab_screenshot.png)
-*(Placeholder: Add screenshot of the Scenario Lab execution pipeline here)*
+![Scenario Lab Screenshot](docs/images/scenario_lab_screenshot.png)
+
+![Scenario Lab Screenshot](docs/images/Recovery_Plans_and_Agent_Report.png)
+
 
 FulfillTwin AI is a production-oriented portfolio capstone that simulates fulfillment-center disruptions, forecasts their impact, retrieves internal operating guidance, convenes a multi-agent specialist council, compares recovery plans, and preserves every decision in auditable JSON memory.
 
