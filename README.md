@@ -10,6 +10,20 @@
 
 FulfillTwin AI is a production-oriented portfolio capstone that simulates fulfillment-center disruptions, forecasts their impact, retrieves internal operating guidance, convenes a multi-agent specialist council, compares recovery plans, and preserves every decision in auditable JSON memory.
 
+---
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+## Project Links
+
+- **Live Demo:** https://workforceagenticall-production.up.railway.app/FulfillTwin_AI
+- **GitHub Repository:** https://github.com/draculess99/FulfillTwin_AI
+- **LinkedIn:** https://www.linkedin.com/in/gammaconsult/
+- **Portfolio:** https://draculess99.github.io/
+
+---
+
+
 ## The Problem: Why FulfillTwin AI?
 
 Modern fulfillment centers are incredibly complex, high-speed environments. When a sudden disruption occurs—like a massive order surge, a conveyor belt breakdown, or an unexpected labor shortage—managers are forced to make split-second decisions that cost thousands of dollars. 
@@ -18,12 +32,7 @@ Historically, warehouse managers have relied on static dashboards and gut instin
 
 FulfillTwin AI was built as a capstone project to bridge this gap. It proves that by combining traditional Machine Learning (for hard math), multi-agent orchestration (for specialized reasoning), and strict human-in-the-loop governance, AI can act as a highly reliable "Incident Commander" during chaotic supply chain emergencies.
 
-## Project Links
 
-- **Project Landing Page:** https://draculess99.github.io/
-- **Interactive Tableau Story:** https://public.tableau.com/shared/JJFMGGF7Y?:display_count=n&:origin=viz_share_link
-- **Streamlit Live Demo:** https://warehouse-frontend-ce88.onrender.com/
-- **GitHub Repository:** https://github.com/draculess99/VET-VTO-Forecasting
 
 ## What exactly does it do?
 
