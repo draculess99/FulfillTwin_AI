@@ -8,7 +8,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#1e293b',
+                primaryTextColor: '#f8fafc',
+                primaryBorderColor: '#334155',
+                lineColor: '#64748b',
+                secondaryColor: '#0f172a',
+                tertiaryColor: '#1e293b'
+            }
+        });
+    </script>
+    <style>
         :root {
             --bg-color: #0b0f19;
             --card-bg: rgba(255, 255, 255, 0.03);
@@ -225,29 +240,6 @@
             justify-content: center;
         }
 
-        .diagram-figure {
-            margin: 0;
-            width: 100%;
-            text-align: center;
-        }
-
-        .diagram-image {
-            width: 100%;
-            max-width: 1100px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
-            background: #ffffff;
-        }
-
-        .diagram-caption {
-            margin-top: 1rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
         /* Animations */
         @keyframes fadeInDown {
             from {
@@ -382,18 +374,28 @@
             <p>FulfillTwin AI uses a specialized multi-agent architecture. Rather than relying on a single monolithic
                 LLM prompt to solve a massive supply chain disaster, the system breaks the problem down into isolated
                 domains, evaluated by a deterministic arbiter.</p>
+
             <div class="diagram-container">
-                <figure class="diagram-figure">
-                    <img src="fulfilltwin_ai_decision_flow_diagram.png"
-                        alt="FulfillTwin AI end-to-end digital twin and recovery decision flow diagram"
-                        class="diagram-image">
-                    <figcaption class="diagram-caption">
-                        End-to-end FulfillTwin operating flow: live operational inputs feed the ML and digital twin
-                        analysis layer, which is governed by knowledge guardrails, routed through the multi-agent
-                        council, optimized by the deterministic arbiter, and then executed through human approval,
-                        audit memory, and the control-tower feedback loop.
-                    </figcaption>
-                </figure>
+                <div class="mermaid">
+                    flowchart TD
+                    ML[ML Pipeline Outputs<br />Backlog & SLA Risk] -->|Ingested by| Council
+
+                    subgraph Council [Multi-Agent Council]
+                    A1[Demand Agent]
+                    A2[Workforce Agent]
+                    A3[Equipment Agent]
+                    A4[Dock Agent]
+                    A5[Energy Agent]
+                    A6[Safety Agent]
+                    A7[Finance Agent]
+                    end
+
+                    Council -->|Propose independent solutions| Arbiter[Deterministic Arbiter & Optimizer]
+                    Arbiter -->|Calculate Costs & Safety Penalties| Arbiter
+                    Arbiter -->|Select optimal, lowest-cost path| WinningPlan[Final Winning Plan]
+                    WinningPlan --> LLM[LLM Narrative Generator]
+                    LLM --> Brief[Human-Readable Executive Brief]
+                </div>
             </div>
         </div>
 
