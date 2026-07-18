@@ -53,16 +53,24 @@ The LLM is an optional narrative and coordination layer. The measurable operatio
 
 The bundled models train on synthetic data on first startup. For production use, replace the synthetic generator with site-specific historical events and retrain.
 
-## Multi-agent council
+## Multi-Agent Orchestration & Decision Making
 
-1. Demand Forecast Agent
-2. Workforce Agent
-3. Equipment Recovery Agent
-4. Dock Flow Agent
-5. Energy Agent
-6. Safety & Governance Agent
-7. Finance Agent
-8. Deterministic arbiter/optimizer
+FulfillTwin AI uses a specialized multi-agent architecture. Rather than relying on a single monolithic LLM prompt to solve a massive supply chain disaster, the system breaks the problem down into isolated domains:
+
+1. **Demand Forecast Agent**
+2. **Workforce Agent**
+3. **Equipment Recovery Agent**
+4. **Dock Flow Agent**
+5. **Energy Agent**
+6. **Safety & Governance Agent**
+7. **Finance Agent**
+
+**How they come to a conclusion:**
+1. **Independent Evaluation:** Each of the 7 agents looks at the initial Machine Learning forecasts independently. The Finance agent proposes cost-cutting, while the Workforce agent proposes calling in extra labor. 
+2. **The Arbiter (Optimizer):** Instead of letting the LLMs argue with each other (which is slow and prone to hallucination), FulfillTwin uses a hard-coded **Deterministic Arbiter**. 
+3. **Scoring & Optimization:** The Arbiter ingests all the competing agent proposals and mathematically simulates their outcomes. It assigns a financial "Cost" and "Throughput Gain" to every possible combination of interventions (e.g., paying for overtime vs. paying SLA penalties for late packages).
+4. **The Final Plan:** The Arbiter mathematically selects the single most optimal, lowest-cost, safest path to recovery. 
+5. **Narrative Generation:** Only *after* the math is finalized does the system hand the winning plan back to the LLM to write a human-readable Executive Brief.
 
 ## Pages
 
