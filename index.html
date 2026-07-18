@@ -4,19 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FulfillTwin AI</title>
+    <meta name="description"
+        content="FulfillTwin AI is a warehouse digital-twin and incident-command portfolio project combining traditional machine learning, deterministic optimization, multi-agent reasoning, RAG, and human approval.">
+    <meta name="theme-color" content="#0b0f19">
+    <meta property="og:title" content="FulfillTwin AI | Warehouse Digital Twin & Incident Commander">
+    <meta property="og:description"
+        content="A production-oriented portfolio capstone for simulating fulfillment disruptions and evaluating governed recovery plans.">
+    <meta property="og:type" content="website">
+    <title>FulfillTwin AI | Warehouse Digital Twin & Incident Commander</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-start: #FDE047;
-            --accent-end: #EAB308;
+            --bg: #0b0f19;
+            --bg-soft: #101724;
+            --panel: rgba(255, 255, 255, 0.035);
+            --panel-strong: rgba(255, 255, 255, 0.055);
+            --border: rgba(255, 255, 255, 0.11);
+            --border-accent: rgba(254, 240, 138, 0.34);
+            --text: #f8fafc;
+            --muted: #a7b2c4;
+            --muted-strong: #cbd5e1;
+            --accent: #fef08a;
+            --accent-deep: #fde047;
+            --success: #86efac;
+            --warning: #fcd34d;
+            --danger: #fca5a5;
+            --shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+            --radius: 18px;
+            --max-width: 1180px;
         }
 
         * {
@@ -25,380 +44,1240 @@
             padding: 0;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Subtle Background Gradient */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(234, 179, 8, 0.05) 0%, rgba(0, 0, 0, 0) 50%);
-            z-index: -1;
-            pointer-events: none;
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 0%, rgba(253, 224, 71, 0.08), transparent 30rem),
+                radial-gradient(circle at 90% 25%, rgba(59, 130, 246, 0.05), transparent 28rem),
+                var(--bg);
+            line-height: 1.65;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 999;
+            padding: 0.8rem 1rem;
+            color: #111827;
+            background: var(--accent);
+            border-radius: 0 0 8px 0;
+            font-weight: 700;
+        }
+
+        .skip-link:focus {
+            left: 0;
+        }
+
+        .shell {
+            width: min(var(--max-width), calc(100% - 2rem));
+            margin: 0 auto;
         }
 
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 4rem;
-            background: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--card-border);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid var(--border);
+            background: rgba(11, 15, 25, 0.86);
+            backdrop-filter: blur(16px);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-buttons {
+        .nav-inner {
+            min-height: 76px;
             display: flex;
+            align-items: center;
+            justify-content: space-between;
             gap: 1rem;
         }
 
-        .btn {
+        .brand {
             text-decoration: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            font-size: 1.25rem;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            color: #111827;
+            background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+            border-radius: 9px;
+            box-shadow: 0 8px 22px rgba(253, 224, 71, 0.22);
+            font-size: 0.78rem;
+            letter-spacing: -0.05em;
+        }
+
+        .nav-actions,
+        .hero-actions,
+        .footer-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            min-height: 42px;
+            padding: 0.65rem 1rem;
+            border: 1px solid transparent;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: 700;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-block;
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
         }
 
-        .btn-outline {
-            color: var(--text-main);
-            border: 1px solid var(--card-border);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .btn:hover {
             transform: translateY(-2px);
+        }
+
+        .btn:focus-visible,
+        a:focus-visible {
+            outline: 3px solid rgba(254, 240, 138, 0.45);
+            outline-offset: 3px;
         }
 
         .btn-primary {
-            color: #0f172a;
-            background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%);
-            border: none;
-            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
+            color: #111827;
+            background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+            box-shadow: 0 8px 24px rgba(253, 224, 71, 0.2);
         }
 
         .btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(234, 179, 8, 0.5);
-            transform: translateY(-2px);
-            filter: brightness(1.1);
+            box-shadow: 0 10px 28px rgba(253, 224, 71, 0.32);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.045);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.075);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .hero {
+            padding: 6.5rem 0 4rem;
             text-align: center;
-            padding: 6rem 2rem 4rem;
-            max-width: 900px;
-            margin: 0 auto;
-            animation: fadeInDown 1s ease-out;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            padding: 0.42rem 0.78rem;
+            border: 1px solid var(--border-accent);
+            border-radius: 999px;
+            color: #fef3c7;
+            background: rgba(253, 224, 71, 0.06);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 5px rgba(254, 240, 138, 0.08);
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 700px;
+            max-width: 950px;
             margin: 0 auto;
+            font-size: clamp(2.5rem, 6vw, 4.65rem);
+            line-height: 1.03;
+            letter-spacing: -0.055em;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem 6rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+        .hero h1 span {
+            background: linear-gradient(135deg, #fff7b2, var(--accent-deep));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 1s ease-out;
-            animation-fill-mode: both;
+        .hero-lead {
+            max-width: 800px;
+            margin: 1.5rem auto 0;
+            color: var(--muted);
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
         }
 
-        /* Staggered animations */
-        .card:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .card:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .card:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        .card h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #fff;
-            display: inline-block;
-            border-bottom: 2px solid var(--accent-start);
-            padding-bottom: 0.5rem;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-size: 1.05rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+        .hero-actions {
+            justify-content: center;
             margin-top: 2rem;
         }
 
-        .feature-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+        .disclosure {
+            max-width: 860px;
+            margin: 2rem auto 0;
+            padding: 0.85rem 1rem;
+            border: 1px solid rgba(134, 239, 172, 0.18);
+            border-radius: 11px;
+            color: #d1fae5;
+            background: rgba(22, 101, 52, 0.11);
+            font-size: 0.9rem;
         }
 
-        .feature-box:hover {
-            transform: translateY(-5px);
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .stat {
+            min-height: 128px;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--panel);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-number {
+            display: block;
+            margin-bottom: 0.2rem;
+            color: var(--accent);
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .stat-label {
+            color: var(--muted-strong);
+            font-weight: 700;
+            font-size: 0.92rem;
+        }
+
+        .stat-note {
+            margin-top: 0.35rem;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        main {
+            padding-bottom: 5rem;
+        }
+
+        section {
+            scroll-margin-top: 100px;
+        }
+
+        .section {
+            margin-top: 1.4rem;
+            padding: clamp(1.5rem, 4vw, 2.75rem);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--panel);
+            box-shadow: var(--shadow);
+        }
+
+        .section-kicker {
+            margin-bottom: 0.35rem;
+            color: var(--accent);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .section-heading {
+            max-width: 850px;
+            font-size: clamp(1.75rem, 4vw, 2.45rem);
+            line-height: 1.15;
+            letter-spacing: -0.035em;
+        }
+
+        .section-intro {
+            max-width: 900px;
+            margin-top: 1rem;
+            color: var(--muted);
+            font-size: 1.02rem;
+        }
+
+        .grid-2,
+        .grid-3,
+        .grid-4,
+        .feature-grid,
+        .evidence-grid,
+        .screenshot-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.75rem;
+        }
+
+        .grid-2,
+        .screenshot-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .grid-4,
+        .evidence-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .mini-card,
+        .feature-card,
+        .evidence-card,
+        .case-card,
+        .stack-card {
+            padding: 1.35rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-accent);
             background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(253, 224, 71, 0.3);
         }
 
-        .feature-box h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-            color: #e2e8f0;
-            display: flex;
+        .feature-index {
+            display: inline-flex;
+            width: 34px;
+            height: 34px;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 0.95rem;
+            border: 1px solid var(--border-accent);
+            border-radius: 9px;
+            color: var(--accent);
+            background: rgba(253, 224, 71, 0.05);
+            font-size: 0.78rem;
+            font-weight: 800;
         }
 
-        .feature-box p {
-            font-size: 0.95rem;
-            margin-bottom: 0;
+        .feature-card h3,
+        .mini-card h3,
+        .evidence-card h3,
+        .case-card h3,
+        .stack-card h3 {
+            margin-bottom: 0.55rem;
+            color: #e8edf5;
+            font-size: 1.05rem;
+            line-height: 1.35;
+        }
+
+        .feature-card p,
+        .mini-card p,
+        .evidence-card p,
+        .case-card p,
+        .stack-card p {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .evidence-card strong {
+            color: var(--text);
+        }
+
+        .evidence-card.warning {
+            border-color: rgba(252, 211, 77, 0.23);
+            background: rgba(120, 53, 15, 0.08);
+        }
+
+        .plain-list {
+            margin-top: 0.7rem;
+            padding-left: 1.1rem;
+            color: var(--muted);
+        }
+
+        .plain-list li+li {
+            margin-top: 0.42rem;
+        }
+
+        .table-wrap {
+            margin-top: 1.75rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+            background: rgba(10, 15, 25, 0.35);
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+            vertical-align: top;
+        }
+
+        th {
+            color: #fef3c7;
+            background: rgba(253, 224, 71, 0.055);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        td {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        td:first-child {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .case-study {
+            margin-top: 1.75rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-accent);
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(253, 224, 71, 0.075), rgba(255, 255, 255, 0.02));
+        }
+
+        .case-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .case-heading h3 {
+            font-size: 1.3rem;
+            letter-spacing: -0.02em;
+        }
+
+        .demo-tag {
+            flex: 0 0 auto;
+            padding: 0.3rem 0.55rem;
+            border: 1px solid rgba(254, 240, 138, 0.25);
+            border-radius: 999px;
+            color: #fef3c7;
+            background: rgba(253, 224, 71, 0.08);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .case-summary {
+            margin-top: 0.7rem;
+            color: var(--muted);
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .case-card .value {
+            display: block;
+            color: var(--accent);
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.035em;
+        }
+
+        .case-card .label {
+            display: block;
+            margin-top: 0.15rem;
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+
+        .case-footnote {
+            margin-top: 1rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .screenshot-card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #080c14;
+        }
+
+        .screenshot-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            object-position: center;
+            background: #070b12;
+        }
+
+        .screenshot-copy {
+            padding: 1rem 1.1rem 1.15rem;
+        }
+
+        .screenshot-copy h3 {
+            margin-bottom: 0.35rem;
+            font-size: 1rem;
+        }
+
+        .screenshot-copy p {
+            color: var(--muted);
+            font-size: 0.86rem;
         }
 
         .diagram-container {
-            background: #0f172a;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-top: 1.5rem;
+            margin-top: 1.75rem;
+            padding: 1rem;
             overflow-x: auto;
-            border: 1px solid var(--card-border);
-            display: flex;
-            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #0f172a;
         }
 
-        .diagram-figure {
-            margin: 0;
+        .diagram-container img {
+            display: block;
             width: 100%;
+            min-width: 760px;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .caption {
+            margin-top: 0.85rem;
+            color: var(--muted);
+            font-size: 0.84rem;
             text-align: center;
         }
 
-        .diagram-image {
-            width: 100%;
-            max-width: 1100px;
-            height: auto;
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: 1.6rem;
+            align-items: stretch;
+        }
+
+        .pipeline-step {
+            position: relative;
+            padding: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .pipeline-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -0.58rem;
+            top: 50%;
+            z-index: 2;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .pipeline-step span {
             display: block;
-            margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
-            background: #ffffff;
+            margin-bottom: 0.4rem;
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
-        .diagram-caption {
-            margin-top: 1rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
+        .pipeline-step strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.92rem;
         }
 
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+        .pipeline-step p {
+            margin-top: 0.35rem;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.4rem;
+        }
+
+        .badge {
+            padding: 0.44rem 0.68rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--muted-strong);
+            background: rgba(255, 255, 255, 0.03);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .governance-callout {
+            margin-top: 1.4rem;
+            padding: 1rem 1.15rem;
+            border-left: 3px solid var(--accent);
+            color: var(--muted-strong);
+            background: rgba(253, 224, 71, 0.055);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .profile-card {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.2rem;
+            margin-top: 1.6rem;
+        }
+
+        .profile-main,
+        .profile-links {
+            padding: 1.4rem;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .profile-name {
+            color: var(--accent);
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .profile-role {
+            margin-top: 0.25rem;
+            color: var(--muted-strong);
+            font-weight: 700;
+        }
+
+        .profile-copy {
+            margin-top: 0.8rem;
+            color: var(--muted);
+        }
+
+        .profile-links {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.65rem;
+        }
+
+        .profile-links a {
+            text-decoration: none;
+            color: var(--muted-strong);
+            font-weight: 700;
+        }
+
+        .profile-links a:hover {
+            color: var(--accent);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            background: rgba(6, 10, 17, 0.55);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            min-height: 110px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-links a {
+            color: var(--muted-strong);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 980px) {
+
+            .quick-stats,
+            .grid-4,
+            .evidence-grid,
+            .case-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            .feature-grid,
+            .grid-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .pipeline {
+                grid-template-columns: 1fr;
+            }
+
+            .pipeline-step:not(:last-child)::after {
+                content: "↓";
+                right: 50%;
+                top: auto;
+                bottom: -1rem;
+                transform: translateX(50%);
             }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        @media (max-width: 760px) {
+            .nav-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 0.85rem 0;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 1rem 2rem;
+            .nav-actions {
+                width: 100%;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .nav-actions .btn {
+                flex: 1;
             }
 
             .hero {
-                padding: 4rem 1rem 2rem;
+                padding-top: 4.3rem;
             }
 
-            .card {
-                padding: 1.5rem;
+            .grid-2,
+            .grid-3,
+            .feature-grid,
+            .screenshot-grid,
+            .profile-card {
+                grid-template-columns: 1fr;
+            }
+
+            .case-heading,
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .footer-inner {
+                padding: 1.5rem 0;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .shell {
+                width: min(var(--max-width), calc(100% - 1rem));
+            }
+
+            .hero h1 {
+                font-size: 2.45rem;
+            }
+
+            .quick-stats,
+            .grid-4,
+            .evidence-grid,
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 1.25rem;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
             }
         }
     </style>
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <nav>
-        <div class="logo">FulfillTwin AI</div>
-        <div class="nav-buttons">
-            <a href="https://github.com/draculess99/FulfillTwin_AI" class="btn btn-outline" target="_blank">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round"
-                    style="vertical-align: middle; margin-right: 6px; margin-top: -2px;">
-                    <path
-                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                    </path>
-                </svg>
-                View Code
+    <nav aria-label="Primary navigation">
+        <div class="shell nav-inner">
+            <a class="brand" href="#top" aria-label="FulfillTwin AI home">
+                <span class="brand-mark">FT</span>
+                <span>FulfillTwin AI</span>
             </a>
-            <a href="https://workforceagenticall-production.up.railway.app/FulfillTwin_AI/" class="btn btn-primary"
-                target="_blank">Open App in Railway</a>
+
+            <div class="nav-actions">
+                <a class="btn btn-secondary" href="https://github.com/draculess99/FulfillTwin_AI" target="_blank"
+                    rel="noopener noreferrer">View Code</a>
+                <a class="btn btn-primary" href="https://workforceagenticall-production.up.railway.app/FulfillTwin_AI/"
+                    target="_blank" rel="noopener noreferrer">Open Live Demo</a>
+            </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <h1>Intelligent Incident Command for Modern Fulfillment</h1>
-        <p>A production-oriented digital twin that simulates disruptions, mathematically forecasts impact, and convenes
-            a multi-agent AI council to orchestrate optimal recovery.</p>
+    <header class="hero shell" id="top">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> Warehouse Digital Twin · ML · Agentic Decision Support
+        </div>
+        <h1>Intelligent incident command for <span>modern fulfillment</span></h1>
+        <p class="hero-lead">
+            A production-oriented portfolio capstone that simulates fulfillment-center disruptions, estimates
+            operational impact with traditional machine learning, and coordinates a governed multi-agent recovery
+            workflow.
+        </p>
+
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="https://workforceagenticall-production.up.railway.app/FulfillTwin_AI/"
+                target="_blank" rel="noopener noreferrer">Launch FulfillTwin AI</a>
+            <a class="btn btn-secondary" href="#evidence">Review Technical Evidence</a>
+        </div>
+
+        <p class="disclosure">
+            <strong>Transparent portfolio disclosure:</strong> the bundled demonstration models train on synthetic
+            fulfillment scenarios. The architecture is designed for future integration with site-specific WMS, labor,
+            equipment, dock, safety, and energy data.
+        </p>
+
+        <div class="quick-stats" aria-label="Project highlights">
+            <div class="stat">
+                <span class="stat-number">7</span>
+                <span class="stat-label">Specialist agents</span>
+                <p class="stat-note">Demand, workforce, equipment, dock, energy, safety, and finance.</p>
+            </div>
+            <div class="stat">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Traditional ML components</span>
+                <p class="stat-note">Regression, classification, clustering, and anomaly detection.</p>
+            </div>
+            <div class="stat">
+                <span class="stat-number">1</span>
+                <span class="stat-label">Deterministic arbiter</span>
+                <p class="stat-note">Compares candidate plans using cost, throughput, and safety constraints.</p>
+            </div>
+            <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Human-controlled execution</span>
+                <p class="stat-note">Material interventions remain advisory until a manager approves them.</p>
+            </div>
+        </div>
     </header>
 
-    <section class="container">
+    <main class="shell" id="main-content">
+        <section class="section" aria-labelledby="problem-heading">
+            <p class="section-kicker">Business problem</p>
+            <h2 class="section-heading" id="problem-heading">When operations change in minutes, static dashboards are
+                not enough</h2>
+            <p class="section-intro">
+                A demand surge, conveyor failure, labor shortage, dock constraint, or safety event can rapidly increase
+                backlog and late-shipment risk. Managers must compare recovery actions while balancing throughput,
+                overtime, equipment limits, cost, and worker safety.
+            </p>
 
-        <!-- Section: The Problem -->
-        <div class="card">
-            <h2>The Problem: Why FulfillTwin AI?</h2>
-            <p>Modern fulfillment centers are incredibly complex, high-speed environments. When a sudden disruption
-                occurs—like a massive order surge, a conveyor belt breakdown, or an unexpected labor shortage—managers
-                are forced to make split-second decisions that cost thousands of dollars.</p>
-            <p>Historically, warehouse managers have relied on static dashboards and gut instinct. Generative AI alone
-                isn't enough to solve this, because LLMs are notoriously bad at supply-chain physics and raw math.</p>
-            <p>FulfillTwin AI was built to bridge this gap. It proves that by combining traditional Machine Learning
-                (for hard math), multi-agent orchestration (for specialized reasoning), and strict human-in-the-loop
-                governance, AI can act as a highly reliable "Incident Commander" during chaotic supply chain
-                emergencies.</p>
-        </div>
+            <div class="grid-3">
+                <article class="mini-card">
+                    <h3>Fragmented signals</h3>
+                    <p>Operational data often sits across disconnected warehouse, labor, equipment, dock, and safety
+                        systems.</p>
+                </article>
+                <article class="mini-card">
+                    <h3>High-speed trade-offs</h3>
+                    <p>The fastest response is not always the safest or most economical response.</p>
+                </article>
+                <article class="mini-card">
+                    <h3>AI without governance</h3>
+                    <p>An LLM alone should not calculate warehouse physics, approve overtime, or override operating
+                        constraints.</p>
+                </article>
+            </div>
+        </section>
 
-        <!-- Section: The Solution -->
-        <div class="card">
-            <h2>The Solution: What it does & How it fits in</h2>
-            <p>FulfillTwin AI sits directly between the physical warehouse floor and the human managers. It ingests live
-                operating data, predicts failures before they happen, and generates mathematically backed recovery
-                plans.</p>
+        <section class="section" aria-labelledby="solution-heading">
+            <p class="section-kicker">Solution</p>
+            <h2 class="section-heading" id="solution-heading">A decision-support layer between operational signals and
+                human managers</h2>
+            <p class="section-intro">
+                FulfillTwin AI combines a simulated control tower, a digital-twin scenario laboratory, traditional
+                machine learning, local policy retrieval, specialist agents, deterministic plan scoring, and human
+                approval.
+            </p>
 
-            <div class="features-grid">
-                <div class="feature-box">
-                    <h3>📊 Live Monitoring</h3>
-                    <p>Ingests live data streams from the warehouse floor, acting as a real-time Control Tower to spot
-                        anomalies instantly.</p>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <span class="feature-index">01</span>
+                    <h3>Simulated operational monitoring</h3>
+                    <p>Generates representative event streams for portfolio demonstration and provides a control-tower
+                        pattern ready for production data connectors.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="feature-index">02</span>
+                    <h3>Disruption mapping</h3>
+                    <p>Maps events such as demand surges, labor shortages, and equipment failures into controlled
+                        digital-twin scenarios.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="feature-index">03</span>
+                    <h3>ML impact estimates</h3>
+                    <p>Estimates future backlog and SLA-breach risk, identifies the operating regime, and flags unusual
+                        states.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="feature-index">04</span>
+                    <h3>Seven-agent council</h3>
+                    <p>Specialist agents independently assess demand, labor, equipment, docks, energy, safety, and
+                        financial impact.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="feature-index">05</span>
+                    <h3>Deterministic optimization</h3>
+                    <p>Scores candidate plans using explicit cost, backlog reduction, throughput, overtime, and safety
+                        constraints.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="feature-index">06</span>
+                    <h3>Auditable decisions</h3>
+                    <p>Writes scenarios, forecasts, recommendations, and approvals to an atomic, thread-safe JSON
+                        decision store.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="evidence" aria-labelledby="evidence-heading">
+            <p class="section-kicker">Project evidence</p>
+            <h2 class="section-heading" id="evidence-heading">What is implemented, what is demonstrated, and what still
+                requires production data</h2>
+            <p class="section-intro">
+                This section separates working technical components from future production validation so employers can
+                evaluate the project accurately.
+            </p>
+
+            <div class="evidence-grid">
+                <article class="evidence-card">
+                    <h3>Data</h3>
+                    <p><strong>Current:</strong> synthetic fulfillment scenarios generated at startup.</p>
+                    <ul class="plain-list">
+                        <li>Order volume and backlog</li>
+                        <li>Absenteeism and labor capacity</li>
+                        <li>Equipment, dock, safety, and energy signals</li>
+                    </ul>
+                </article>
+                <article class="evidence-card">
+                    <h3>Models</h3>
+                    <p><strong>Implemented:</strong> a mixed traditional-ML pipeline.</p>
+                    <ul class="plain-list">
+                        <li>XGBoost regressor</li>
+                        <li>XGBoost classifier</li>
+                        <li>K-means clustering</li>
+                        <li>Isolation Forest</li>
+                    </ul>
+                </article>
+                <article class="evidence-card">
+                    <h3>Evaluation</h3>
+                    <p><strong>Available in Model Ops:</strong> demonstration metrics, model information, retraining
+                        controls, and decision-memory inspection.</p>
+                    <p style="margin-top:0.65rem;">Synthetic-model results are engineering evidence, not claims of live
+                        warehouse accuracy.</p>
+                </article>
+                <article class="evidence-card warning">
+                    <h3>Production limitation</h3>
+                    <p><strong>Required next:</strong> replace the synthetic generator with site-specific historical
+                        events, define operational baselines, retrain, validate by facility, and move audit records to
+                        persistent production storage.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="different-heading">
+            <p class="section-kicker">Technical differentiation</p>
+            <h2 class="section-heading" id="different-heading">Not just another LLM wrapper</h2>
+            <p class="section-intro">
+                The LLM is an optional communication layer. The operational recommendation is grounded in traditional ML
+                outputs, deterministic rules, local retrieval, and transparent plan scoring.
+            </p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th>Implementation</th>
+                            <th>Role in the decision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Future backlog estimate</td>
+                            <td>XGBoost regressor</td>
+                            <td>Produces the numerical backlog forecast used by agents and plan scoring.</td>
+                        </tr>
+                        <tr>
+                            <td>SLA-breach risk</td>
+                            <td>XGBoost classifier</td>
+                            <td>Estimates late-shipment risk for the simulated operating state.</td>
+                        </tr>
+                        <tr>
+                            <td>Operating regime</td>
+                            <td>K-means clustering</td>
+                            <td>Groups the scenario into an interpretable operating pattern.</td>
+                        </tr>
+                        <tr>
+                            <td>Out-of-distribution warning</td>
+                            <td>Isolation Forest</td>
+                            <td>Flags scenarios that differ substantially from the training distribution.</td>
+                        </tr>
+                        <tr>
+                            <td>Safety and operating constraints</td>
+                            <td>Deterministic expert system</td>
+                            <td>Blocks or flags actions that violate encoded guardrails.</td>
+                        </tr>
+                        <tr>
+                            <td>Policy evidence</td>
+                            <td>Local TF-IDF RAG over playbooks</td>
+                            <td>Retrieves relevant guidance without making the LLM the source of truth.</td>
+                        </tr>
+                        <tr>
+                            <td>Recovery-plan selection</td>
+                            <td>Transparent deterministic arbiter</td>
+                            <td>Compares candidate interventions using explicit costs and operational effects.</td>
+                        </tr>
+                        <tr>
+                            <td>Executive explanation</td>
+                            <td>Local, Groq, or Gemini provider</td>
+                            <td>Turns the already-selected plan into a manager-readable brief.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="case-heading-main">
+            <p class="section-kicker">Worked demonstration</p>
+            <h2 class="section-heading" id="case-heading-main">Example: demand surge and constrained recovery</h2>
+            <p class="section-intro">
+                A representative Scenario Lab run shows how the system moves from model outputs to a governed recovery
+                recommendation.
+            </p>
+
+            <div class="case-study">
+                <div class="case-heading">
+                    <div>
+                        <h3>Service-first recovery selected for a high-risk simulated event</h3>
+                        <p class="case-summary">The digital twin estimated a severe backlog and full SLA-breach risk.
+                            The agent council generated alternatives, and the deterministic arbiter selected the
+                            lowest-scored viable plan under the configured rules.</p>
+                    </div>
+                    <span class="demo-tag">Demonstration run</span>
                 </div>
-                <div class="feature-box">
-                    <h3>🎯 Disruption Mapping</h3>
-                    <p>Allows users to map physical emergencies directly into a simulated digital twin to experiment
-                        safely.</p>
+
+                <div class="case-grid">
+                    <article class="case-card">
+                        <span class="value">9,431</span>
+                        <span class="label">Estimated future backlog</span>
+                    </article>
+                    <article class="case-card">
+                        <span class="value">100%</span>
+                        <span class="label">Estimated SLA-breach risk</span>
+                    </article>
+                    <article class="case-card">
+                        <span class="value">1,670</span>
+                        <span class="label">Estimated backlog reduction</span>
+                    </article>
+                    <article class="case-card">
+                        <span class="value">$65.2K</span>
+                        <span class="label">Estimated incident cost</span>
+                    </article>
                 </div>
-                <div class="feature-box">
-                    <h3>📈 Mathematical Forecasting</h3>
-                    <p>Uses pre-trained XGBoost and K-Means models to accurately predict future backlog and the exact
-                        probability of an SLA breach.</p>
+
+                <p class="case-footnote">
+                    Selected actions in the displayed run included moving 15 associates, authorizing 4 overtime hours,
+                    applying a 22% release throttle, and requiring human approval before execution. These values
+                    illustrate system behavior; they are not production performance guarantees.
+                </p>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="flow-heading">
+            <p class="section-kicker">Decision flow</p>
+            <h2 class="section-heading" id="flow-heading">From warehouse signal to manager-approved action</h2>
+
+            <div class="pipeline" aria-label="FulfillTwin decision pipeline">
+                <div class="pipeline-step">
+                    <span>Step 1</span>
+                    <strong>Operational inputs</strong>
+                    <p>Simulated or future site-integrated warehouse signals.</p>
                 </div>
-                <div class="feature-box">
-                    <h3>🤖 Agentic Council</h3>
-                    <p>Convenes a council of 7 specialized AI agents (Workforce, Demand, Safety, Dock, etc.) to
-                        independently debate competing recovery plans.</p>
+                <div class="pipeline-step">
+                    <span>Step 2</span>
+                    <strong>ML and digital twin</strong>
+                    <p>Backlog, SLA risk, anomaly, and operating-regime outputs.</p>
                 </div>
-                <div class="feature-box">
-                    <h3>⚙️ Cost Optimization</h3>
-                    <p>Runs a Deterministic Arbiter to mathematically select the single lowest-cost, safest path to
-                        recovery before passing it to the LLM.</p>
+                <div class="pipeline-step">
+                    <span>Step 3</span>
+                    <strong>Rules, RAG, and agents</strong>
+                    <p>Guardrails, policy evidence, and specialist assessments.</p>
                 </div>
-                <div class="feature-box">
-                    <h3>🔒 JSON Audit Memory</h3>
-                    <p>Every scenario, model prediction, AI recommendation, and human approval is permanently recorded
-                        in a thread-safe JSON memory store.</p>
+                <div class="pipeline-step">
+                    <span>Step 4</span>
+                    <strong>Deterministic arbiter</strong>
+                    <p>Transparent comparison of cost, safety, and recovery impact.</p>
+                </div>
+                <div class="pipeline-step">
+                    <span>Step 5</span>
+                    <strong>Human approval and audit</strong>
+                    <p>Manager control, executive brief, and recorded decision history.</p>
                 </div>
             </div>
-        </div>
 
-        <!-- Section: Architecture Diagram -->
-        <div class="card">
-            <h2>Multi-Agent Orchestration Architecture</h2>
-            <p>FulfillTwin AI uses a specialized multi-agent architecture. Rather than relying on a single monolithic
-                LLM prompt to solve a massive supply chain disaster, the system breaks the problem down into isolated
-                domains, evaluated by a deterministic arbiter.</p>
             <div class="diagram-container">
-                <figure class="diagram-figure">
-                    <img src="fulfilltwin_ai_decision_flow_diagram.png"
-                        alt="FulfillTwin AI end-to-end digital twin and recovery decision flow diagram"
-                        class="diagram-image">
-                    <figcaption class="diagram-caption">
-                        End-to-end FulfillTwin operating flow: live operational inputs feed the ML and digital twin
-                        analysis layer, which is governed by knowledge guardrails, routed through the multi-agent
-                        council, optimized by the deterministic arbiter, and then executed through human approval,
-                        audit memory, and the control-tower feedback loop.
-                    </figcaption>
-                </figure>
+                <img src="fulfilltwin_ai_decision_flow_diagram.png"
+                    alt="FulfillTwin AI end-to-end digital twin and recovery decision architecture" loading="lazy">
+            </div>
+            <p class="caption">End-to-end architecture linking operational inputs, traditional ML, expert guardrails,
+                local retrieval, the seven-agent council, deterministic optimization, human approval, and the
+                control-tower feedback loop.</p>
+        </section>
+
+        <section class="section" aria-labelledby="stack-heading">
+            <p class="section-kicker">Engineering stack</p>
+            <h2 class="section-heading" id="stack-heading">Built as a deployable Streamlit and Flask application</h2>
+
+            <div class="grid-3">
+                <article class="stack-card">
+                    <h3>Application layer</h3>
+                    <p>Streamlit multipage UI, Flask JSON API, health endpoint, Docker startup, and Railway deployment
+                        configuration.</p>
+                </article>
+                <article class="stack-card">
+                    <h3>Intelligence layer</h3>
+                    <p>XGBoost, scikit-learn, local expert rules, TF-IDF retrieval, seven specialist agents, and
+                        optional Groq or Gemini narratives.</p>
+                </article>
+                <article class="stack-card">
+                    <h3>Governance layer</h3>
+                    <p>Human-in-the-loop approval, atomic JSON decision memory, local fallback behavior, model
+                        operations, and test coverage.</p>
+                </article>
+            </div>
+
+            <div class="badges" aria-label="Technology stack">
+                <span class="badge">Python</span>
+                <span class="badge">Streamlit</span>
+                <span class="badge">Flask</span>
+                <span class="badge">XGBoost</span>
+                <span class="badge">scikit-learn</span>
+                <span class="badge">TF-IDF RAG</span>
+                <span class="badge">Groq</span>
+                <span class="badge">Gemini</span>
+                <span class="badge">JSON Audit Memory</span>
+                <span class="badge">Docker</span>
+                <span class="badge">Railway</span>
+                <span class="badge">pytest</span>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="governance-heading">
+            <p class="section-kicker">Responsible deployment</p>
+            <h2 class="section-heading" id="governance-heading">Designed as advisory decision support—not autonomous
+                workforce control</h2>
+            <p class="section-intro">
+                FulfillTwin AI does not authorize material interventions on its own. Overtime, major labor reassignment,
+                and high-risk recovery actions remain subject to explicit human review.
+            </p>
+
+            <div class="grid-3">
+                <article class="mini-card">
+                    <h3>Deterministic guardrails</h3>
+                    <p>Encoded rules check capacity, safety, and operating constraints before a narrative is produced.
+                    </p>
+                </article>
+                <article class="mini-card">
+                    <h3>Provider-independent fallback</h3>
+                    <p>If an external LLM provider is unavailable, the application can return a deterministic local
+                        brief.</p>
+                </article>
+                <article class="mini-card">
+                    <h3>Traceable recommendations</h3>
+                    <p>The application records the scenario, model outputs, candidate plans, final recommendation, and
+                        approval state.</p>
+                </article>
+            </div>
+
+            <p class="governance-callout">
+                Production hardening would include authenticated roles, persistent database or object storage,
+                facility-specific validation, monitoring and drift detection, secrets management, incident-retention
+                policies, and integration testing against real source systems.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="shell footer-inner">
+            <p>FulfillTwin AI · Portfolio demonstration · Synthetic-data disclosure included</p>
+            <div class="footer-links">
+                <a href="https://github.com/draculess99/FulfillTwin_AI" target="_blank"
+                    rel="noopener noreferrer">Code</a>
+                <a href="https://workforceagenticall-production.up.railway.app/FulfillTwin_AI/" target="_blank"
+                    rel="noopener noreferrer">Demo</a>
+                <a href="#top">Back to top</a>
             </div>
         </div>
-
-    </section>
-
+    </footer>
 </body>
 
 </html>
