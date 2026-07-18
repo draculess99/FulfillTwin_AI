@@ -258,6 +258,518 @@
         "tokens": 0
       },
       "stored_at": "2026-07-17T23:49:10.753162+00:00"
+    },
+    {
+      "run_id": "cdaa7f74-196c-4c23-9bc0-197f952c2db1",
+      "created_at": "2026-07-18T00:03:59.209840+00:00",
+      "scenario": {
+        "order_volume_pct": 35.0,
+        "absenteeism_pct": 9.0,
+        "conveyor_capacity_pct": 22.0,
+        "dock_congestion_pct": 55.0,
+        "energy_price_pct": 20.0,
+        "inventory_availability_pct": 91.0,
+        "current_backlog": 1100.0,
+        "workers": 145.0,
+        "base_throughput": 1350.0,
+        "horizon_hours": 6.0
+      },
+      "predictions": {
+        "predicted_backlog": 9195,
+        "sla_breach_probability": 0.9994,
+        "anomaly_score": 0.4355,
+        "operating_regime": "equipment-constrained",
+        "top_model_factors": [
+          {
+            "feature": "horizon_hours",
+            "importance": 0.233
+          },
+          {
+            "feature": "workers",
+            "importance": 0.2191
+          },
+          {
+            "feature": "order_volume_pct",
+            "importance": 0.1754
+          },
+          {
+            "feature": "conveyor_capacity_pct",
+            "importance": 0.0939
+          },
+          {
+            "feature": "inventory_availability_pct",
+            "importance": 0.0638
+          }
+        ]
+      },
+      "expert_rules": [
+        {
+          "rule_id": "EQUIP-001",
+          "severity": "critical",
+          "message": "Material-handling capacity is severely degraded.",
+          "recommended_action": "Activate manual bypass lanes and sequence maintenance recovery by SLA exposure."
+        },
+        {
+          "rule_id": "SLA-001",
+          "severity": "critical",
+          "message": "The predicted SLA-breach probability exceeds 70%.",
+          "recommended_action": "Require incident-command approval and execute the lowest-cost viable recovery plan."
+        }
+      ],
+      "rag_evidence": [
+        {
+          "source": "incident_command.md",
+          "section": "Measurement cadence",
+          "text": "Recalculate backlog, throughput, labor availability, equipment capacity, and SLA risk after each material action. During a critical incident, measure at least every fifteen minutes. Close the incident only after the operation has returned to its control band and owners have documented residual risk.",
+          "score": 0.1808,
+          "citation": "incident_command.md — Measurement cadence"
+        },
+        {
+          "source": "conveyor_recovery.md",
+          "section": "Conveyor degradation",
+          "text": "When conveyor capacity falls below eighty percent, lower the release rate into affected zones and protect priority work. When capacity falls below sixty percent, activate approved bypass paths, send maintenance to the highest-SLA-exposure constraint, and avoid feeding work faster than downstream teams can clear it.",
+          "score": 0.1543,
+          "citation": "conveyor_recovery.md — Conveyor degradation"
+        },
+        {
+          "source": "dock_inventory.md",
+          "section": "Coordination",
+          "text": "Dock, inventory, and production decisions must be coordinated. Accelerating inbound flow without available receiving capacity can worsen congestion, while accelerating outbound production without trailer capacity can move the bottleneck rather than remove it.",
+          "score": 0.1448,
+          "citation": "dock_inventory.md — Coordination"
+        },
+        {
+          "source": "incident_command.md",
+          "section": "Incident command activation",
+          "text": "Open an operational incident when a disruption is likely to create a material service-level breach, safety exposure, or sustained backlog growth. Assign one incident commander, one operations owner, one maintenance owner, and one recorder. Record the trigger, model evidence, rules fired, decision owner, approval status, and next measurement time.",
+          "score": 0.1368,
+          "citation": "incident_command.md — Incident command activation"
+        },
+        {
+          "source": "conveyor_recovery.md",
+          "section": "Recovery sequencing",
+          "text": "Restore the bottleneck that unlocks the greatest amount of protected customer demand. Confirm that upstream release, downstream packing, and dock capacity can absorb the recovered flow before returning to the baseline release rate.",
+          "score": 0.0961,
+          "citation": "conveyor_recovery.md — Recovery sequencing"
+        }
+      ],
+      "agent_reports": [
+        {
+          "agent": "Demand Forecast Agent",
+          "role": "Backlog and SLA forecasting",
+          "severity": "critical",
+          "finding": "The model predicts a backlog of 9,195 units and a 100% SLA-breach probability.",
+          "actions": [
+            "Stage recovery capacity before the modeled peak.",
+            "Reforecast after every material intervention."
+          ],
+          "evidence": [
+            "Operating regime: equipment-constrained",
+            "Anomaly score: 0.44"
+          ]
+        },
+        {
+          "agent": "Workforce Agent",
+          "role": "Labor allocation and fatigue controls",
+          "severity": "medium",
+          "finding": "Absenteeism is 9.0%; the lowest-cost viable plan reallocates 15 associates.",
+          "actions": [
+            "Use certified cross-trained associates first.",
+            "Require manager approval before overtime or large reassignments."
+          ],
+          "evidence": [
+            "Workers scheduled: 145",
+            "Proposed overtime: 4 hours"
+          ]
+        },
+        {
+          "agent": "Equipment Recovery Agent",
+          "role": "Conveyor and material-handling recovery",
+          "severity": "critical",
+          "finding": "Material-handling capacity is 22% of baseline.",
+          "actions": [
+            "Sequence maintenance by SLA exposure.",
+            "Use release throttling to prevent downstream gridlock."
+          ],
+          "evidence": [
+            "Recommended maintenance priority: critical",
+            "Release throttle: 22%"
+          ]
+        },
+        {
+          "agent": "Dock Flow Agent",
+          "role": "Trailer, yard, and dock prioritization",
+          "severity": "medium",
+          "finding": "Dock congestion is 55% and may restrict both replenishment and departures.",
+          "actions": [
+            "Prioritize departure-critical trailers.",
+            "Protect replenishment for high-velocity inventory."
+          ],
+          "evidence": [
+            "Inventory availability: 91%"
+          ]
+        },
+        {
+          "agent": "Energy Agent",
+          "role": "Energy-aware operating plan",
+          "severity": "low",
+          "finding": "Energy price is +20% versus baseline.",
+          "actions": [
+            "Shift discretionary charging outside the peak window.",
+            "Do not curtail safety or recovery-critical equipment."
+          ],
+          "evidence": [
+            "Recommended shiftable load: 5%"
+          ]
+        },
+        {
+          "agent": "Safety & Governance Agent",
+          "role": "Guardrails, auditability, and human approval",
+          "severity": "critical",
+          "finding": "The expert system produced 2 control findings, including 2 critical rules.",
+          "actions": [
+            "Keep all consequential actions human-approved.",
+            "Do not use outputs for individual worker discipline."
+          ],
+          "evidence": [
+            "RAG evidence retrieved: 5 chunks",
+            "Decision will be written to JSON memory"
+          ]
+        },
+        {
+          "agent": "Finance Agent",
+          "role": "Recovery cost and service-loss trade-off",
+          "severity": "medium",
+          "finding": "The best scored plan has an estimated total incident cost of $63,462.",
+          "actions": [
+            "Compare at least three recovery strategies.",
+            "Track realized cost and backlog reduction after approval."
+          ],
+          "evidence": [
+            "Residual backlog: 7,525",
+            "Estimated reduction: 1,670"
+          ]
+        }
+      ],
+      "candidate_plans": [
+        {
+          "name": "Service-first recovery",
+          "labor_reallocation": 15,
+          "overtime_hours": 4,
+          "release_throttle_pct": 22,
+          "maintenance_priority": "critical",
+          "energy_shift_pct": 5,
+          "estimated_backlog_reduction": 1670,
+          "residual_backlog": 7525,
+          "estimated_total_cost": 63462.18,
+          "requires_human_approval": true
+        },
+        {
+          "name": "Balanced recovery",
+          "labor_reallocation": 11,
+          "overtime_hours": 2,
+          "release_throttle_pct": 15,
+          "maintenance_priority": "high",
+          "energy_shift_pct": 5,
+          "estimated_backlog_reduction": 919,
+          "residual_backlog": 8276,
+          "estimated_total_cost": 64635.45,
+          "requires_human_approval": true
+        },
+        {
+          "name": "Cost-controlled recovery",
+          "labor_reallocation": 5,
+          "overtime_hours": 0,
+          "release_throttle_pct": 25,
+          "maintenance_priority": "high",
+          "energy_shift_pct": 12,
+          "estimated_backlog_reduction": 255,
+          "residual_backlog": 8940,
+          "estimated_total_cost": 66315.86,
+          "requires_human_approval": false
+        }
+      ],
+      "recommended_plan": {
+        "name": "Service-first recovery",
+        "labor_reallocation": 15,
+        "overtime_hours": 4,
+        "release_throttle_pct": 22,
+        "maintenance_priority": "critical",
+        "energy_shift_pct": 5,
+        "estimated_backlog_reduction": 1670,
+        "residual_backlog": 7525,
+        "estimated_total_cost": 63462.18,
+        "requires_human_approval": true
+      },
+      "approval": {
+        "required": true,
+        "status": "PENDING",
+        "reason": "Consequential labor/overtime action or elevated SLA risk"
+      },
+      "executive_brief": {
+        "provider": "LOCAL",
+        "model": "expert-system-v1",
+        "text": "Incident assessment: projected backlog 9,195; SLA-breach probability 100%; operating regime equipment-constrained. The expert system identified 2 critical controls. Recommend 'Service-first recovery', which is estimated to reduce backlog by 1,670 units at a total incident cost of $63,462. Human approval is required before execution.",
+        "fallback": false,
+        "tokens": 0
+      },
+      "stored_at": "2026-07-18T00:03:59.210199+00:00"
+    },
+    {
+      "run_id": "ebf43de7-77b5-4242-a352-23b05140b160",
+      "created_at": "2026-07-18T00:04:20.254116+00:00",
+      "scenario": {
+        "order_volume_pct": 35.0,
+        "absenteeism_pct": 9.0,
+        "conveyor_capacity_pct": 22.0,
+        "dock_congestion_pct": 55.0,
+        "energy_price_pct": 20.0,
+        "inventory_availability_pct": 91.0,
+        "current_backlog": 1100.0,
+        "workers": 145.0,
+        "base_throughput": 1350.0,
+        "horizon_hours": 6.0
+      },
+      "predictions": {
+        "predicted_backlog": 9195,
+        "sla_breach_probability": 0.9994,
+        "anomaly_score": 0.4355,
+        "operating_regime": "equipment-constrained",
+        "top_model_factors": [
+          {
+            "feature": "horizon_hours",
+            "importance": 0.233
+          },
+          {
+            "feature": "workers",
+            "importance": 0.2191
+          },
+          {
+            "feature": "order_volume_pct",
+            "importance": 0.1754
+          },
+          {
+            "feature": "conveyor_capacity_pct",
+            "importance": 0.0939
+          },
+          {
+            "feature": "inventory_availability_pct",
+            "importance": 0.0638
+          }
+        ]
+      },
+      "expert_rules": [
+        {
+          "rule_id": "EQUIP-001",
+          "severity": "critical",
+          "message": "Material-handling capacity is severely degraded.",
+          "recommended_action": "Activate manual bypass lanes and sequence maintenance recovery by SLA exposure."
+        },
+        {
+          "rule_id": "SLA-001",
+          "severity": "critical",
+          "message": "The predicted SLA-breach probability exceeds 70%.",
+          "recommended_action": "Require incident-command approval and execute the lowest-cost viable recovery plan."
+        }
+      ],
+      "rag_evidence": [
+        {
+          "source": "incident_command.md",
+          "section": "Measurement cadence",
+          "text": "Recalculate backlog, throughput, labor availability, equipment capacity, and SLA risk after each material action. During a critical incident, measure at least every fifteen minutes. Close the incident only after the operation has returned to its control band and owners have documented residual risk.",
+          "score": 0.1808,
+          "citation": "incident_command.md — Measurement cadence"
+        },
+        {
+          "source": "conveyor_recovery.md",
+          "section": "Conveyor degradation",
+          "text": "When conveyor capacity falls below eighty percent, lower the release rate into affected zones and protect priority work. When capacity falls below sixty percent, activate approved bypass paths, send maintenance to the highest-SLA-exposure constraint, and avoid feeding work faster than downstream teams can clear it.",
+          "score": 0.1543,
+          "citation": "conveyor_recovery.md — Conveyor degradation"
+        },
+        {
+          "source": "dock_inventory.md",
+          "section": "Coordination",
+          "text": "Dock, inventory, and production decisions must be coordinated. Accelerating inbound flow without available receiving capacity can worsen congestion, while accelerating outbound production without trailer capacity can move the bottleneck rather than remove it.",
+          "score": 0.1448,
+          "citation": "dock_inventory.md — Coordination"
+        },
+        {
+          "source": "incident_command.md",
+          "section": "Incident command activation",
+          "text": "Open an operational incident when a disruption is likely to create a material service-level breach, safety exposure, or sustained backlog growth. Assign one incident commander, one operations owner, one maintenance owner, and one recorder. Record the trigger, model evidence, rules fired, decision owner, approval status, and next measurement time.",
+          "score": 0.1368,
+          "citation": "incident_command.md — Incident command activation"
+        },
+        {
+          "source": "conveyor_recovery.md",
+          "section": "Recovery sequencing",
+          "text": "Restore the bottleneck that unlocks the greatest amount of protected customer demand. Confirm that upstream release, downstream packing, and dock capacity can absorb the recovered flow before returning to the baseline release rate.",
+          "score": 0.0961,
+          "citation": "conveyor_recovery.md — Recovery sequencing"
+        }
+      ],
+      "agent_reports": [
+        {
+          "agent": "Demand Forecast Agent",
+          "role": "Backlog and SLA forecasting",
+          "severity": "critical",
+          "finding": "The model predicts a backlog of 9,195 units and a 100% SLA-breach probability.",
+          "actions": [
+            "Stage recovery capacity before the modeled peak.",
+            "Reforecast after every material intervention."
+          ],
+          "evidence": [
+            "Operating regime: equipment-constrained",
+            "Anomaly score: 0.44"
+          ]
+        },
+        {
+          "agent": "Workforce Agent",
+          "role": "Labor allocation and fatigue controls",
+          "severity": "medium",
+          "finding": "Absenteeism is 9.0%; the lowest-cost viable plan reallocates 15 associates.",
+          "actions": [
+            "Use certified cross-trained associates first.",
+            "Require manager approval before overtime or large reassignments."
+          ],
+          "evidence": [
+            "Workers scheduled: 145",
+            "Proposed overtime: 4 hours"
+          ]
+        },
+        {
+          "agent": "Equipment Recovery Agent",
+          "role": "Conveyor and material-handling recovery",
+          "severity": "critical",
+          "finding": "Material-handling capacity is 22% of baseline.",
+          "actions": [
+            "Sequence maintenance by SLA exposure.",
+            "Use release throttling to prevent downstream gridlock."
+          ],
+          "evidence": [
+            "Recommended maintenance priority: critical",
+            "Release throttle: 22%"
+          ]
+        },
+        {
+          "agent": "Dock Flow Agent",
+          "role": "Trailer, yard, and dock prioritization",
+          "severity": "medium",
+          "finding": "Dock congestion is 55% and may restrict both replenishment and departures.",
+          "actions": [
+            "Prioritize departure-critical trailers.",
+            "Protect replenishment for high-velocity inventory."
+          ],
+          "evidence": [
+            "Inventory availability: 91%"
+          ]
+        },
+        {
+          "agent": "Energy Agent",
+          "role": "Energy-aware operating plan",
+          "severity": "low",
+          "finding": "Energy price is +20% versus baseline.",
+          "actions": [
+            "Shift discretionary charging outside the peak window.",
+            "Do not curtail safety or recovery-critical equipment."
+          ],
+          "evidence": [
+            "Recommended shiftable load: 5%"
+          ]
+        },
+        {
+          "agent": "Safety & Governance Agent",
+          "role": "Guardrails, auditability, and human approval",
+          "severity": "critical",
+          "finding": "The expert system produced 2 control findings, including 2 critical rules.",
+          "actions": [
+            "Keep all consequential actions human-approved.",
+            "Do not use outputs for individual worker discipline."
+          ],
+          "evidence": [
+            "RAG evidence retrieved: 5 chunks",
+            "Decision will be written to JSON memory"
+          ]
+        },
+        {
+          "agent": "Finance Agent",
+          "role": "Recovery cost and service-loss trade-off",
+          "severity": "medium",
+          "finding": "The best scored plan has an estimated total incident cost of $63,462.",
+          "actions": [
+            "Compare at least three recovery strategies.",
+            "Track realized cost and backlog reduction after approval."
+          ],
+          "evidence": [
+            "Residual backlog: 7,525",
+            "Estimated reduction: 1,670"
+          ]
+        }
+      ],
+      "candidate_plans": [
+        {
+          "name": "Service-first recovery",
+          "labor_reallocation": 15,
+          "overtime_hours": 4,
+          "release_throttle_pct": 22,
+          "maintenance_priority": "critical",
+          "energy_shift_pct": 5,
+          "estimated_backlog_reduction": 1670,
+          "residual_backlog": 7525,
+          "estimated_total_cost": 63462.18,
+          "requires_human_approval": true
+        },
+        {
+          "name": "Balanced recovery",
+          "labor_reallocation": 11,
+          "overtime_hours": 2,
+          "release_throttle_pct": 15,
+          "maintenance_priority": "high",
+          "energy_shift_pct": 5,
+          "estimated_backlog_reduction": 919,
+          "residual_backlog": 8276,
+          "estimated_total_cost": 64635.45,
+          "requires_human_approval": true
+        },
+        {
+          "name": "Cost-controlled recovery",
+          "labor_reallocation": 5,
+          "overtime_hours": 0,
+          "release_throttle_pct": 25,
+          "maintenance_priority": "high",
+          "energy_shift_pct": 12,
+          "estimated_backlog_reduction": 255,
+          "residual_backlog": 8940,
+          "estimated_total_cost": 66315.86,
+          "requires_human_approval": false
+        }
+      ],
+      "recommended_plan": {
+        "name": "Service-first recovery",
+        "labor_reallocation": 15,
+        "overtime_hours": 4,
+        "release_throttle_pct": 22,
+        "maintenance_priority": "critical",
+        "energy_shift_pct": 5,
+        "estimated_backlog_reduction": 1670,
+        "residual_backlog": 7525,
+        "estimated_total_cost": 63462.18,
+        "requires_human_approval": true
+      },
+      "approval": {
+        "required": true,
+        "status": "PENDING",
+        "reason": "Consequential labor/overtime action or elevated SLA risk"
+      },
+      "executive_brief": {
+        "provider": "GROQ",
+        "model": "llama-3.3-70b-versatile",
+        "text": "**Incident Command Brief**\n\n### Situation\nWe are facing a critical incident with a predicted backlog of 9,195 units and a 99.94% SLA-breach probability. The current backlog is 1,100 units, with an order volume increase of 35%. Absenteeism is at 9%, and conveyor capacity is severely degraded at 22% of baseline. Dock congestion is at 55%, and energy prices are 20% higher than baseline.\n\n### Model Evidence\nOur models indicate that the operating regime is equipment-constrained, with the top model factors being horizon hours (23.3%), workers (21.91%), order volume percentage (17.54%), conveyor capacity percentage (9.39%), and inventory availability percentage (6.38%) [predictions]. The anomaly score is 0.4355, indicating a significant deviation from normal operations.\n\n### Agent Consensus\nThe agent reports confirm the critical nature of the incident, with the Demand Forecast Agent predicting a 100% SLA-breach probability [agent_reports]. The Workforce Agent recommends reallocating 15 associates, while the Equipment Recovery Agent suggests sequencing maintenance by SLA exposure [agent_reports]. The Safety & Governance Agent emphasizes the need for human approval for all consequential actions [agent_reports].\n\n### Recommended Plan\nBased on the evidence, I recommend the \"Service-first recovery\" plan, which allocates 15 workers, uses 4 hours of overtime, throttles release to 22%, and prioritizes critical maintenance [candidate_plans]. This plan has an estimated total incident cost of $63,462.18 and is expected to reduce the backlog by 1,670 units.\n\n### Guardrails\nTo ensure safe and effective execution, I propose the following guardrails:\n1. Require human approval for all consequential actions [Safety & Governance Agent].\n2. Monitor and adjust the release throttle to prevent downstream gridlock [Equipment Recovery Agent].\n3. Prioritize departure-critical trailers and protect replenishment for high-velocity inventory [Dock Flow Agent].\n4. Shift discretionary charging outside the peak window to minimize energy costs [Energy Agent].\n\n### Next Measurement\nI recommend recalculating the backlog, throughput, labor availability, equipment capacity, and SLA risk after each material action, at a minimum of every 15 minutes, as per the incident command measurement cadence [incident_command.md]. The next measurement will be taken after implementing the recommended plan, and the results will be used to adjust the plan as needed.",
+        "fallback": false,
+        "tokens": 2510
+      },
+      "stored_at": "2026-07-18T00:04:20.254697+00:00"
     }
   ]
 }

@@ -39,7 +39,9 @@ try:
         st.success(f"Retrained on {response['metrics']['training_rows']:,} synthetic rows")
         st.rerun()
 except Exception as exc:
-    st.error(str(exc))
+    st.warning("⚠️ Cannot connect to the FulfillTwin backend API. Please ensure the backend server is running.")
+    if st.button("🔄 Retry Connection", key="retry_models"):
+        st.rerun()
 
 st.subheader("JSON decision memory")
 try:
@@ -52,4 +54,6 @@ try:
         st.success("Memory cleared")
         st.rerun()
 except Exception as exc:
-    st.error(str(exc))
+    st.warning("⚠️ Cannot connect to the FulfillTwin backend API. Please ensure the backend server is running.")
+    if st.button("🔄 Retry Connection", key="retry_memory"):
+        st.rerun()

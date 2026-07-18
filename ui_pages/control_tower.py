@@ -53,7 +53,7 @@ def render_live_events():
         st.markdown("### 🚨 Active Incident Triggers")
         st.info("💡 **Interactive Demo Flow:**\n1. **Click** any of the active alerts below.\n2. You will be automatically teleported to the Scenario Lab.\n3. Click **Run digital twin** to have the AI solve the exact disaster you clicked!")
         
-        high_sev_events = [e for e in events if e["severity"] in ("CRITICAL", "HIGH")][:3]
+        high_sev_events = [e for e in events if e["severity"] in ("CRITICAL", "HIGH")]
         if not high_sev_events:
             st.success("No active critical or high-severity incidents detected.")
         else:
