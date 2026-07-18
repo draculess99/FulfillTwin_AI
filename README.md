@@ -2,7 +2,38 @@
 
 **Human–Robot Workforce Digital Twin and Incident Commander**
 
+![Control Tower Screenshot](path/to/your/control_tower_screenshot.png)
+*(Placeholder: Add screenshot of the Control Tower live dashboard here)*
+
+![Scenario Lab Screenshot](path/to/your/scenario_lab_screenshot.png)
+*(Placeholder: Add screenshot of the Scenario Lab execution pipeline here)*
+
 FulfillTwin AI is a production-oriented portfolio capstone that simulates fulfillment-center disruptions, forecasts their impact, retrieves internal operating guidance, convenes a multi-agent specialist council, compares recovery plans, and preserves every decision in auditable JSON memory.
+
+## The Problem: Why FulfillTwin AI?
+
+Modern fulfillment centers are incredibly complex, high-speed environments. When a sudden disruption occurs—like a massive order surge, a conveyor belt breakdown, or an unexpected labor shortage—managers are forced to make split-second decisions that cost thousands of dollars. 
+
+Historically, warehouse managers have relied on static dashboards and gut instinct. Generative AI alone isn't enough to solve this, because LLMs are notoriously bad at supply-chain physics and raw math. 
+
+FulfillTwin AI was built as a capstone project to bridge this gap. It proves that by combining traditional Machine Learning (for hard math), multi-agent orchestration (for specialized reasoning), and strict human-in-the-loop governance, AI can act as a highly reliable "Incident Commander" during chaotic supply chain emergencies.
+
+## What exactly does it do?
+
+FulfillTwin AI acts as an end-to-end digital twin and recovery engine:
+1. **Live Monitoring:** Ingests live data streams from the warehouse floor.
+2. **Disruption Mapping:** Allows users to map physical emergencies (e.g., "Critical Conveyor Failure") directly into a simulated digital twin.
+3. **Mathematical Forecasting:** Uses XGBoost and K-Means models to accurately predict how bad the resulting backlog will be and whether the warehouse will breach its Service Level Agreements (SLAs).
+4. **Agentic Problem Solving:** Convenes a council of 7 specialized AI agents (Workforce, Demand, Safety, Dock, etc.) to debate and propose competing recovery plans.
+5. **Cost Optimization:** Runs a deterministic optimizer to pick the cheapest, safest recovery plan.
+
+## Guardrails & Memory
+
+In high-stakes enterprise environments, AI cannot be a "black box" that operates without supervision. FulfillTwin AI enforces strict safety protocols:
+
+* **Expert System Guardrails:** Before the LLM can generate a narrative, a hard-coded Python expert system checks the proposed plan. If the AI suggests an unsafe action (like pushing conveyor belts past 100% capacity or ignoring safety incident protocols), the Expert System explicitly flags and blocks it.
+* **Human-in-the-Loop Approval:** The AI is strictly advisory. Any major intervention—especially involving labor reallocation, overtime, or significant cost—requires explicit human approval through the UI before it is executed.
+* **Immutable JSON Audit Memory:** Every single disaster scenario, model prediction, AI recommendation, and human approval is permanently recorded in a thread-safe JSON memory store. This ensures 100% traceability for post-incident audits.
 
 ## Why this is not just another chatbot
 
