@@ -57,13 +57,26 @@ The bundled models train on synthetic data on first startup. For production use,
 
 FulfillTwin AI uses a specialized multi-agent architecture. Rather than relying on a single monolithic LLM prompt to solve a massive supply chain disaster, the system breaks the problem down into isolated domains:
 
-1. **Demand Forecast Agent**
-2. **Workforce Agent**
-3. **Equipment Recovery Agent**
-4. **Dock Flow Agent**
-5. **Energy Agent**
-6. **Safety & Governance Agent**
-7. **Finance Agent**
+```mermaid
+flowchart TD
+    ML[ML Pipeline Outputs<br/>Backlog & SLA Risk] -->|Ingested by| Council
+    
+    subgraph Council [Multi-Agent Council]
+        A1[Demand Agent]
+        A2[Workforce Agent]
+        A3[Equipment Agent]
+        A4[Dock Agent]
+        A5[Energy Agent]
+        A6[Safety Agent]
+        A7[Finance Agent]
+    end
+    
+    Council -->|Propose independent solutions| Arbiter[Deterministic Arbiter & Optimizer]
+    Arbiter -->|Calculate Costs & Safety Penalties| Arbiter
+    Arbiter -->|Select optimal, lowest-cost path| WinningPlan[Final Winning Plan]
+    WinningPlan --> LLM[LLM Narrative Generator]
+    LLM --> Brief[Human-Readable Executive Brief]
+```
 
 **How they come to a conclusion:**
 1. **Independent Evaluation:** Each of the 7 agents looks at the initial Machine Learning forecasts independently. The Finance agent proposes cost-cutting, while the Workforce agent proposes calling in extra labor. 
