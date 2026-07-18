@@ -18,6 +18,13 @@ Historically, warehouse managers have relied on static dashboards and gut instin
 
 FulfillTwin AI was built as a capstone project to bridge this gap. It proves that by combining traditional Machine Learning (for hard math), multi-agent orchestration (for specialized reasoning), and strict human-in-the-loop governance, AI can act as a highly reliable "Incident Commander" during chaotic supply chain emergencies.
 
+## Project Links
+
+- **Project Landing Page:** https://draculess99.github.io/
+- **Interactive Tableau Story:** https://public.tableau.com/shared/JJFMGGF7Y?:display_count=n&:origin=viz_share_link
+- **Streamlit Live Demo:** https://warehouse-frontend-ce88.onrender.com/
+- **GitHub Repository:** https://github.com/draculess99/VET-VTO-Forecasting
+
 ## What exactly does it do?
 
 FulfillTwin AI acts as an end-to-end digital twin and recovery engine:
