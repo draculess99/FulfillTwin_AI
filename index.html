@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ 
-            startOnLoad: true, 
+        mermaid.initialize({
+            startOnLoad: true,
             theme: 'dark',
             themeVariables: {
                 primaryColor: '#1e293b',
@@ -29,8 +30,8 @@
             --card-border: rgba(255, 255, 255, 0.1);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent-start: #00C6FF;
-            --accent-end: #0072FF;
+            --accent-start: #FDE047;
+            --accent-end: #EAB308;
         }
 
         * {
@@ -55,7 +56,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 114, 255, 0.05) 0%, rgba(0, 0, 0, 0) 50%);
+            background: radial-gradient(circle at 50% 50%, rgba(234, 179, 8, 0.05) 0%, rgba(0, 0, 0, 0) 50%);
             z-index: -1;
             pointer-events: none;
         }
@@ -110,14 +111,14 @@
         }
 
         .btn-primary {
-            color: #fff;
+            color: #0f172a;
             background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%);
             border: none;
-            box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
         }
 
         .btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(0, 114, 255, 0.5);
+            box-shadow: 0 6px 20px rgba(234, 179, 8, 0.5);
             transform: translateY(-2px);
             filter: brightness(1.1);
         }
@@ -166,9 +167,17 @@
         }
 
         /* Staggered animations */
-        .card:nth-child(1) { animation-delay: 0.2s; }
-        .card:nth-child(2) { animation-delay: 0.4s; }
-        .card:nth-child(3) { animation-delay: 0.6s; }
+        .card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
 
         .card h2 {
             font-size: 1.8rem;
@@ -203,7 +212,7 @@
         .feature-box:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(0, 198, 255, 0.3);
+            border-color: rgba(253, 224, 71, 0.3);
         }
 
         .feature-box h3 {
@@ -233,80 +242,128 @@
 
         /* Animations */
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
-            nav { padding: 1rem 2rem; }
-            .hero h1 { font-size: 2.5rem; }
-            .hero { padding: 4rem 1rem 2rem; }
-            .card { padding: 1.5rem; }
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem 2rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <nav>
         <div class="logo">FulfillTwin AI</div>
         <div class="nav-buttons">
             <a href="https://github.com/draculess99/FulfillTwin_AI" class="btn btn-outline" target="_blank">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px; margin-top: -2px;"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    style="vertical-align: middle; margin-right: 6px; margin-top: -2px;">
+                    <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                    </path>
+                </svg>
                 View Code
             </a>
-            <a href="https://railway.app/" class="btn btn-primary" target="_blank">Open App in Railway</a>
+            <a href="https://workforceagenticall-production.up.railway.app/FulfillTwin_AI/" class="btn btn-primary"
+                target="_blank">Open App in Railway</a>
         </div>
     </nav>
 
     <header class="hero">
         <h1>Intelligent Incident Command for Modern Fulfillment</h1>
-        <p>A production-oriented digital twin that simulates disruptions, mathematically forecasts impact, and convenes a multi-agent AI council to orchestrate optimal recovery.</p>
+        <p>A production-oriented digital twin that simulates disruptions, mathematically forecasts impact, and convenes
+            a multi-agent AI council to orchestrate optimal recovery.</p>
     </header>
 
     <section class="container">
-        
+
         <!-- Section: The Problem -->
         <div class="card">
             <h2>The Problem: Why FulfillTwin AI?</h2>
-            <p>Modern fulfillment centers are incredibly complex, high-speed environments. When a sudden disruption occurs—like a massive order surge, a conveyor belt breakdown, or an unexpected labor shortage—managers are forced to make split-second decisions that cost thousands of dollars.</p>
-            <p>Historically, warehouse managers have relied on static dashboards and gut instinct. Generative AI alone isn't enough to solve this, because LLMs are notoriously bad at supply-chain physics and raw math.</p>
-            <p>FulfillTwin AI was built to bridge this gap. It proves that by combining traditional Machine Learning (for hard math), multi-agent orchestration (for specialized reasoning), and strict human-in-the-loop governance, AI can act as a highly reliable "Incident Commander" during chaotic supply chain emergencies.</p>
+            <p>Modern fulfillment centers are incredibly complex, high-speed environments. When a sudden disruption
+                occurs—like a massive order surge, a conveyor belt breakdown, or an unexpected labor shortage—managers
+                are forced to make split-second decisions that cost thousands of dollars.</p>
+            <p>Historically, warehouse managers have relied on static dashboards and gut instinct. Generative AI alone
+                isn't enough to solve this, because LLMs are notoriously bad at supply-chain physics and raw math.</p>
+            <p>FulfillTwin AI was built to bridge this gap. It proves that by combining traditional Machine Learning
+                (for hard math), multi-agent orchestration (for specialized reasoning), and strict human-in-the-loop
+                governance, AI can act as a highly reliable "Incident Commander" during chaotic supply chain
+                emergencies.</p>
         </div>
 
         <!-- Section: The Solution -->
         <div class="card">
             <h2>The Solution: What it does & How it fits in</h2>
-            <p>FulfillTwin AI sits directly between the physical warehouse floor and the human managers. It ingests live operating data, predicts failures before they happen, and generates mathematically backed recovery plans.</p>
-            
+            <p>FulfillTwin AI sits directly between the physical warehouse floor and the human managers. It ingests live
+                operating data, predicts failures before they happen, and generates mathematically backed recovery
+                plans.</p>
+
             <div class="features-grid">
                 <div class="feature-box">
                     <h3>📊 Live Monitoring</h3>
-                    <p>Ingests live data streams from the warehouse floor, acting as a real-time Control Tower to spot anomalies instantly.</p>
+                    <p>Ingests live data streams from the warehouse floor, acting as a real-time Control Tower to spot
+                        anomalies instantly.</p>
                 </div>
                 <div class="feature-box">
                     <h3>🎯 Disruption Mapping</h3>
-                    <p>Allows users to map physical emergencies directly into a simulated digital twin to experiment safely.</p>
+                    <p>Allows users to map physical emergencies directly into a simulated digital twin to experiment
+                        safely.</p>
                 </div>
                 <div class="feature-box">
                     <h3>📈 Mathematical Forecasting</h3>
-                    <p>Uses pre-trained XGBoost and K-Means models to accurately predict future backlog and the exact probability of an SLA breach.</p>
+                    <p>Uses pre-trained XGBoost and K-Means models to accurately predict future backlog and the exact
+                        probability of an SLA breach.</p>
                 </div>
                 <div class="feature-box">
                     <h3>🤖 Agentic Council</h3>
-                    <p>Convenes a council of 7 specialized AI agents (Workforce, Demand, Safety, Dock, etc.) to independently debate competing recovery plans.</p>
+                    <p>Convenes a council of 7 specialized AI agents (Workforce, Demand, Safety, Dock, etc.) to
+                        independently debate competing recovery plans.</p>
                 </div>
                 <div class="feature-box">
                     <h3>⚙️ Cost Optimization</h3>
-                    <p>Runs a Deterministic Arbiter to mathematically select the single lowest-cost, safest path to recovery before passing it to the LLM.</p>
+                    <p>Runs a Deterministic Arbiter to mathematically select the single lowest-cost, safest path to
+                        recovery before passing it to the LLM.</p>
                 </div>
                 <div class="feature-box">
                     <h3>🔒 JSON Audit Memory</h3>
-                    <p>Every scenario, model prediction, AI recommendation, and human approval is permanently recorded in a thread-safe JSON memory store.</p>
+                    <p>Every scenario, model prediction, AI recommendation, and human approval is permanently recorded
+                        in a thread-safe JSON memory store.</p>
                 </div>
             </div>
         </div>
@@ -314,28 +371,30 @@
         <!-- Section: Architecture Diagram -->
         <div class="card">
             <h2>Multi-Agent Orchestration Architecture</h2>
-            <p>FulfillTwin AI uses a specialized multi-agent architecture. Rather than relying on a single monolithic LLM prompt to solve a massive supply chain disaster, the system breaks the problem down into isolated domains, evaluated by a deterministic arbiter.</p>
-            
+            <p>FulfillTwin AI uses a specialized multi-agent architecture. Rather than relying on a single monolithic
+                LLM prompt to solve a massive supply chain disaster, the system breaks the problem down into isolated
+                domains, evaluated by a deterministic arbiter.</p>
+
             <div class="diagram-container">
                 <div class="mermaid">
-flowchart TD
-    ML[ML Pipeline Outputs<br/>Backlog & SLA Risk] -->|Ingested by| Council
-    
-    subgraph Council [Multi-Agent Council]
-        A1[Demand Agent]
-        A2[Workforce Agent]
-        A3[Equipment Agent]
-        A4[Dock Agent]
-        A5[Energy Agent]
-        A6[Safety Agent]
-        A7[Finance Agent]
-    end
-    
-    Council -->|Propose independent solutions| Arbiter[Deterministic Arbiter & Optimizer]
-    Arbiter -->|Calculate Costs & Safety Penalties| Arbiter
-    Arbiter -->|Select optimal, lowest-cost path| WinningPlan[Final Winning Plan]
-    WinningPlan --> LLM[LLM Narrative Generator]
-    LLM --> Brief[Human-Readable Executive Brief]
+                    flowchart TD
+                    ML[ML Pipeline Outputs<br />Backlog & SLA Risk] -->|Ingested by| Council
+
+                    subgraph Council [Multi-Agent Council]
+                    A1[Demand Agent]
+                    A2[Workforce Agent]
+                    A3[Equipment Agent]
+                    A4[Dock Agent]
+                    A5[Energy Agent]
+                    A6[Safety Agent]
+                    A7[Finance Agent]
+                    end
+
+                    Council -->|Propose independent solutions| Arbiter[Deterministic Arbiter & Optimizer]
+                    Arbiter -->|Calculate Costs & Safety Penalties| Arbiter
+                    Arbiter -->|Select optimal, lowest-cost path| WinningPlan[Final Winning Plan]
+                    WinningPlan --> LLM[LLM Narrative Generator]
+                    LLM --> Brief[Human-Readable Executive Brief]
                 </div>
             </div>
         </div>
@@ -343,4 +402,5 @@ flowchart TD
     </section>
 
 </body>
+
 </html>
