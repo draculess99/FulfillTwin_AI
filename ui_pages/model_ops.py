@@ -71,6 +71,16 @@ try:
             b_cols2[1].metric("FulfillTwin vs Baseline Win-Rate", f"{ob['percentage_ft_beats_fixed_baseline']:.1%}")
             b_cols2[2].metric("Human Approval Rate", f"{ob['human_approval_rate']:.1%}")
             
+            st.write("**Out-of-Sample Benchmark Model Performance**")
+            bm_metrics = benchmark.get("metrics", {})
+            if bm_metrics:
+                m_cols = st.columns(4)
+                m_cols[0].metric("Benchmark R²", f"{bm_metrics.get('regression_r2', {}).get('value', 0):.3f}")
+                m_cols[1].metric("Benchmark MAE", f"{bm_metrics.get('regression_mae', {}).get('value', 0):,.2f}")
+                m_cols[2].metric("Benchmark ROC-AUC", f"{bm_metrics.get('classification_roc_auc', {}).get('value', 0):.3f}")
+                m_cols[3].metric("Benchmark Accuracy", f"{bm_metrics.get('classification_accuracy', {}).get('value', 0):.3f}")
+                st.write("")
+
             st.write("**Plan-Selection Distribution**")
             st.json(ob.get("plan_selection_distribution", {}))
             
