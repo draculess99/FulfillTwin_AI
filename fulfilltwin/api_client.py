@@ -53,3 +53,9 @@ class ApiClient:
 
     def events(self, count: int = 12) -> dict[str, Any]:
         return self._request("GET", f"/api/events?count={count}")
+
+    def benchmark_results(self) -> dict[str, Any]:
+        return self._request("GET", "/api/benchmark-results")
+
+    def run_benchmark(self) -> dict[str, Any]:
+        return self._request("POST", "/api/benchmarks/run")

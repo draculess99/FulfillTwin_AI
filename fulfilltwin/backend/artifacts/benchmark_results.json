@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "evaluation_seed": 999,
+    "evaluation_timestamp": "2026-07-21T20:04:33.319750+00:00",
+    "model_version": "v1.0-xgb",
+    "data_description": "held-out synthetic validation scenarios covering 4 presets",
+    "sample_size": 1000,
+    "bootstrap_resamples": 1000,
+    "positive_class_rate": 0.804
+  },
+  "metrics": {
+    "regression_mae": {
+      "value": 858.9111,
+      "ci_lower": 804.6712,
+      "ci_upper": 912.1469
+    },
+    "regression_rmse": {
+      "value": 1223.0303,
+      "ci_lower": 1138.4599,
+      "ci_upper": 1301.9494
+    },
+    "regression_r2": {
+      "value": 0.9248,
+      "ci_lower": 0.9144,
+      "ci_upper": 0.9348
+    },
+    "classification_accuracy": {
+      "value": 0.914,
+      "ci_lower": 0.898,
+      "ci_upper": 0.931
+    },
+    "classification_balanced_accuracy": {
+      "value": 0.9272,
+      "ci_lower": 0.9086,
+      "ci_upper": 0.9444
+    },
+    "classification_precision": {
+      "value": 0.9864,
+      "ci_lower": 0.9774,
+      "ci_upper": 0.9934
+    },
+    "classification_recall": {
+      "value": 0.9055,
+      "ci_lower": 0.8856,
+      "ci_upper": 0.9252
+    },
+    "classification_f1": {
+      "value": 0.9442,
+      "ci_lower": 0.9332,
+      "ci_upper": 0.9557
+    },
+    "classification_roc_auc": {
+      "value": 0.9734,
+      "ci_lower": 0.9646,
+      "ci_upper": 0.9817
+    }
+  },
+  "confusion_matrix": [
+    [
+      186,
+      10
+    ],
+    [
+      76,
+      728
+    ]
+  ],
+  "operational_benchmark": {
+    "label": "simulated operational benchmark results",
+    "mean_simulated_backlog_reduction": 1147.84,
+    "median_simulated_backlog_reduction": 1151.5,
+    "mean_simulated_incident_cost_difference": -2957.52,
+    "sla_breach_difference": -0.13,
+    "percentage_ft_beats_fixed_baseline": 1.0,
+    "plan_selection_distribution": {
+      "Service-first recovery": 0.612,
+      "Cost-controlled recovery": 0.312,
+      "Balanced recovery": 0.076
+    },
+    "human_approval_rate": 0.692,
+    "baselines": {
+      "no_intervention": {
+        "mean_backlog_reduction": 0.0,
+        "median_backlog_reduction": 0.0,
+        "mean_total_cost": 42638.45,
+        "sla_breach_rate": 0.778
+      },
+      "fixed_balanced": {
+        "mean_backlog_reduction": 730.89,
+        "median_backlog_reduction": 732.5,
+        "mean_total_cost": 40590.17,
+        "sla_breach_rate": 0.695
+      },
+      "fixed_service_first": {
+        "mean_backlog_reduction": 1399.73,
+        "median_backlog_reduction": 1312.0,
+        "mean_total_cost": 40601.27,
+        "sla_breach_rate": 0.625
+      },
+      "fixed_cost_controlled": {
+        "mean_backlog_reduction": 244.27,
+        "median_backlog_reduction": 223.0,
+        "mean_total_cost": 41295.04,
+        "sla_breach_rate": 0.746
+      }
+    }
+  }
+}

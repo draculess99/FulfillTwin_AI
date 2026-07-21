@@ -4,6 +4,7 @@ import random
 from datetime import datetime, timezone
 from typing import Any
 
+import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -142,6 +143,27 @@ def create_app(test_config: dict[str, Any] | None = None) -> Flask:
                 }
             )
         return jsonify({"events": rows})
+
+    @app.get("/api/benchmark-results")
+    def benchmark_results():
+        try:
+            results_path = ARTIFACT_DIR / "benchmark_results.json"
+            if not results_path.exists():
+                return jsonify({"error": "Benchmark results not found. Run benchmark first."}), 404
+            results = json.loads(results_path.read_text(encoding="utf-8"))
+            return jsonify(results)
+        except Exception as exc:
+            return jsonify({"error": str(exc)}), 500
+
+    @app.post("/api/benchmarks/run")
+    def run_benchmark_api():
+        try:
+            from fulfilltwin.backend.services.benchmark_engine import BenchmarkEngine
+            engine = BenchmarkEngine(ml, ARTIFACT_DIR, seed=999)
+            results = engine.run_benchmark()
+            return jsonify({"status": "completed", "results": results})
+        except Exception as exc:
+            return jsonify({"error": str(exc)}), 500
 
     return app
 

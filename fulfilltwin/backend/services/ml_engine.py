@@ -10,7 +10,20 @@ import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.ensemble import IsolationForest
-from sklearn.metrics import accuracy_score, mean_absolute_error, r2_score, roc_auc_score
+from sklearn.dummy import DummyClassifier, DummyRegressor
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.metrics import (
+    accuracy_score,
+    balanced_accuracy_score,
+    confusion_matrix,
+    f1_score,
+    mean_absolute_error,
+    mean_squared_error,
+    precision_score,
+    recall_score,
+    r2_score,
+    roc_auc_score,
+)
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
@@ -144,6 +157,17 @@ class OperationalMLEngine:
         cls_prob = self.classifier.predict_proba(X_test)[:, 1]
         cls_pred = (cls_prob >= 0.5).astype(int)
 
+        # Train Baselines
+        dummy_reg = DummyRegressor(strategy="mean").fit(X_train, y_reg_train)
+        dummy_cls = DummyClassifier(strategy="most_frequent").fit(X_train, y_cls_train)
+        lin_reg = LinearRegression().fit(X_train, y_reg_train)
+        log_reg = LogisticRegression(max_iter=1000).fit(X_train, y_cls_train)
+
+        dummy_reg_pred = dummy_reg.predict(X_test)
+        dummy_cls_pred = dummy_cls.predict(X_test)
+        lin_reg_pred = lin_reg.predict(X_test)
+        log_reg_pred = log_reg.predict(X_test)
+
         self.scaler = StandardScaler().fit(X_train)
         scaled_train = self.scaler.transform(X_train)
         self.clusterer = KMeans(n_clusters=4, random_state=self.seed, n_init=20).fit(scaled_train)
@@ -158,12 +182,50 @@ class OperationalMLEngine:
             auc = float(roc_auc_score(y_cls_test, cls_prob))
         except ValueError:
             auc = 0.0
+            
+        import datetime
+        
+        xgb_mae = float(mean_absolute_error(y_reg_test, reg_pred))
+        dummy_mae = float(mean_absolute_error(y_reg_test, dummy_reg_pred))
+        lin_mae = float(mean_absolute_error(y_reg_test, lin_reg_pred))
+        
+        xgb_acc = float(accuracy_score(y_cls_test, cls_pred))
+        dummy_acc = float(accuracy_score(y_cls_test, dummy_cls_pred))
+        log_acc = float(accuracy_score(y_cls_test, log_reg_pred))
+
         self.metrics = {
-            "training_rows": int(len(df)),
-            "regression_mae": round(float(mean_absolute_error(y_reg_test, reg_pred)), 2),
+            "training_rows": len(X_train),
+            "test_rows": len(X_test),
+            "data_source": "synthetic fulfillment-center scenarios",
+            "evaluation_type": "held-out synthetic validation",
+            "evaluation_seed": self.seed,
+            "split_method": "train_test_split (stratified)",
+            "evaluation_timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            
+            "regression_mae": round(xgb_mae, 2),
+            "regression_rmse": round(float(np.sqrt(mean_squared_error(y_reg_test, reg_pred))), 2),
             "regression_r2": round(float(r2_score(y_reg_test, reg_pred)), 4),
-            "classification_accuracy": round(float(accuracy_score(y_cls_test, cls_pred)), 4),
+            
+            "classification_accuracy": round(xgb_acc, 4),
+            "classification_balanced_accuracy": round(float(balanced_accuracy_score(y_cls_test, cls_pred)), 4),
+            "classification_precision": round(float(precision_score(y_cls_test, cls_pred, zero_division=0)), 4),
+            "classification_recall": round(float(recall_score(y_cls_test, cls_pred, zero_division=0)), 4),
+            "classification_f1": round(float(f1_score(y_cls_test, cls_pred, zero_division=0)), 4),
             "classification_roc_auc": round(auc, 4),
+            "confusion_matrix": confusion_matrix(y_cls_test, cls_pred).tolist(),
+            "positive_class_rate": round(float(y_cls.mean()), 4),
+            
+            "baselines": {
+                "dummy_regression_mae": round(dummy_mae, 2),
+                "linear_regression_mae": round(lin_mae, 2),
+                "dummy_classification_accuracy": round(dummy_acc, 4),
+                "logistic_regression_accuracy": round(log_acc, 4),
+                "xgboost_mae_improvement_vs_dummy": round(dummy_mae - xgb_mae, 2),
+                "xgboost_mae_improvement_vs_linear": round(lin_mae - xgb_mae, 2),
+                "xgboost_acc_improvement_vs_dummy": round(xgb_acc - dummy_acc, 4),
+                "xgboost_acc_improvement_vs_logistic": round(xgb_acc - log_acc, 4),
+            },
+            
             "breach_rate": round(float(y_cls.mean()), 4),
             "features": FEATURES,
             "models": {

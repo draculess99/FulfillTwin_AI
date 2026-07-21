@@ -147,6 +147,43 @@ Generative AI (LLMs) are historically poor at performing raw mathematical calcul
 
 By running these models first, the AI Agents build their recovery plans based on mathematically sound supply-chain forecasts rather than LLM hallucinations.
 
+## Evaluation & Benchmarks
+
+FulfillTwin AI includes a robust, independently evaluated benchmarking system to quantify both model performance and operational savings.
+
+### Methodology and Baselines
+- **Held-Out Validation:** The core ML pipeline separates data into Train and Test subsets (`train_size=0.78`, `test_size=0.22` for the base 3,500 scenarios).
+- **Independent Benchmark Set:** An entirely separate 1,000-scenario benchmark dataset is generated utilizing a fixed, alternative seed. This dataset guarantees that evaluation occurs on unseen data spanning all four standard disruption regimes (Stable, Labor-constrained, Equipment-constrained, Demand-surge).
+- **Statistical Confidence:** Metrics are computed utilizing 95% bootstrap confidence intervals (n_resamples = 1000).
+
+**Baselines:**
+- **ML Baselines:** XGBoost predictions are strictly compared against `DummyRegressor` (predicting the mean), `DummyClassifier` (predicting the majority class), `LinearRegression`, and `LogisticRegression`.
+- **Operational Baselines:** To validate the multi-agent council's optimization effectiveness, FulfillTwin's selected interventions are simulated against four fixed baselines:
+  - *No intervention* (Zero operational changes)
+  - *Fixed Balanced Recovery* (Moderate labor/throttle)
+  - *Fixed Service-First Recovery* (High labor, high throttle)
+  - *Fixed Cost-Controlled Recovery* (Minimal labor, low throttle)
+
+### Complete Metric Table
+All metrics are stored immutably in JSON and CSV formats upon benchmark execution.
+| Metric Type | Metrics Calculated |
+|---|---|
+| **Regression** | MAE, RMSE, R² |
+| **Classification** | Accuracy, Balanced Accuracy, Precision, Recall, F1-Score, ROC-AUC |
+| **Simulator** | Backlog Reduction (Mean/Median), Cost Difference, SLA Breach Diff, Win-Rate vs Baselines |
+
+### Reproduction Command
+You can perfectly reproduce the 1,000-scenario operational benchmark suite using the provided script:
+```bash
+python scripts/run_benchmark.py
+```
+This will output the benchmark distributions and 95% confidence intervals directly to the console, and write the artifacts to `fulfilltwin/backend/artifacts/`.
+
+### Synthetic Data Limitations
+**Warning:** The bundled metrics and benchmark results are derived exclusively from **held-out synthetic fulfillment-center scenarios**. They demonstrate prototype behavior and optimization capability, but **are not production or real-world warehouse performance**. 
+
+Before deployment in a live facility, the internal generators should be substituted with site-specific historical operational data.
+
 ## Local setup
 
 ```bash
