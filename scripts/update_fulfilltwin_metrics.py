@@ -53,7 +53,8 @@ def update_portfolio():
           <div class="proof-note">{disclosure}</div>
         </div>
         <p class="project-impact">
-          7 specialist agents &middot; 4 disruption scenarios &middot; 3 recovery strategies
+          <strong>$2,957 avg. savings per disruption</strong> by dynamically preventing massive SLA penalties.<br>
+          <span style="font-size: 0.85rem; opacity: 0.8;">7 specialist agents &middot; 4 disruption scenarios &middot; 3 recovery strategies</span>
         </p>
         <!-- FULFILLTWIN_METRICS_END -->"""
         
